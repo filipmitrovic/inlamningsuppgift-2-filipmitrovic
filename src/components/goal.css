@@ -1,0 +1,11 @@
+.view-goal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.view-goal-container__inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
