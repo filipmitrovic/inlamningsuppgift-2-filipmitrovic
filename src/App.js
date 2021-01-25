@@ -10,10 +10,10 @@ function App() {
     const [data, setData] = useState([]);
     const [viewGoal, setViewGoal] = useState(null);
 
-    // Fetch data from API
+    // Fetchar data från API (vi hämtar utan children för att spara på resurser, att sidan laddas snabbare)
     useEffect(() => {
         setLoading(true);
-        fetch('https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=true')
+        fetch('https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=false')
             .then((res) => res.json())
             .then((data) => {
                 setLoading(false);
@@ -25,15 +25,22 @@ function App() {
             })
     }, [])
 
+    // Innan vi har fått datan från API:et så renderas förljande: 
     if (loading) {
         return <p>loading...</p>;
     }
     
+    // Om vi får ett error så renderas följande:
     if (error !== '') {
         return <h2>ERROR: {error}</h2>;
     } 
 
-    const handleClick = (e) => setViewGoal(data[e.target.id - 1]);
+    // Denna gången hämtar vi ett goal med children
+    const handleClick = (e) => {
+        fetch(`https://unstats.un.org/SDGAPI/v1/sdg/Goal/${e.target.id}/Target/List?includechildren=true`)
+            .then((res) => res.json())
+            .then((data) => setViewGoal(data[0]))
+    }
 
     return (
         <div className="App">

@@ -5,19 +5,18 @@ const scrollToTop = () => window.scrollTo(0, 0);
 
 function Goal(props) {
     const { goalObj, setViewGoal } = props;
-
+    
     scrollToTop();
 
-    const handleClick = () => {
-        setViewGoal(null);
-    }
+    // när man klickar "Go back" så sätter vi tillbaka setViewGoal till null. Detta görs att vi kmr tillbaka till startsidan
+    const handleClick = () => setViewGoal(null); 
     
     return (
         <div className='view-goal-container'>
             <button onClick={handleClick} style={{width: '150px'}}>← Go Back</button>
             <div>
                 <div className='view-goal-container__inner-container'>
-                    <h1>Goal {goalObj.code}</h1>
+                    <h1 style={{fontSize: '55px'}}>Goal {goalObj.code}</h1>
                     <h2>{goalObj.title}</h2>
                     <p>{goalObj.description}</p>
                     <hr style={{width: '400px'}}/>
@@ -36,4 +35,4 @@ function Goal(props) {
     )
 }
 
-export default Goal
+export default Goal;
